@@ -16,8 +16,14 @@
 			name：设置项名
 			value：设置项取值
 	 -->
+	 
+	
 	<settings>
-		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<!-- 是否开启驼峰命名配置 -->
+		<!-- <setting name="mapUnderscoreToCamelCase" value="true"/> -->
+		<!-- 是否开启懒加载 -->
+		<setting name="lazyLoadingEnabled" value="true"/>
+		<setting name="aggressiveLazyLoading" value="false"/>
 	</settings>
 	
 	<!-- 
@@ -86,6 +92,8 @@
 	 -->
 	<mappers>
 		<mapper resource="EmployeeMapper.xml" /> 
+		<mapper resource="EmployeeMapperPlus.xml"/>
+		<mapper resource="DepartmentMapper.xml"/>
 		<!-- 注册接口：要求映射文件名必须和接口同名，并且放在与接口同一目录下 -->
 		<!-- <mapper class="com.yeqifu.mybatis.EmployeeMapper"/> -->
 		<!-- 批量注册：要求：映射文件名必须和接口同名，并且放在与接口同一目录下 -->

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper  
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<!-- 
+	namespace：名称空间
+	id：唯一标识
+	resultType：返回值类型
+	#{id}：传递过来的参数
+ -->
+<mapper namespace="com.yeqifu.mybatis.dao.EmployeeMapper">
+
+	<select id="getEmployeeBylastNameLikeReturnMap" resultType="com.yeqifu.mybatis.bean.Employee">
+		select * from tbl_employee where last_name like #{lastName}
+	</select>
+
+	<!-- 根据id将查询出来的数据作为map返回 -->
+	<select id="getEmployeeByIdReturnMap" resultType="map">
+		select * from tbl_employee where id=#{id}
+	</select>
+
+	<!-- 根据lastName模糊查询employee   返回一个List<Employee> -->
+	<select id="getEmployeeBylastName" resultType="com.yeqifu.mybatis.bean.Employee">
+		select * from tbl_employee where last_name like #{lastName}
+	</select>
+
+	<select id="getEmployeeById" resultType="employee"> 
+		select * from tbl_employee where id = #{id}  
+	</select>
+	
+	<select id="getEmployeeByMap" resultType="com.yeqifu.mybatis.bean.Employee">
+		select * from ${tableName} where id = ${id} and last_name=#{lastName}
+	</select>
+	
+	<!-- 根据id和lastName查询一个employee -->
+	<select id="getEmployeeByIdAndlastName" resultType="com.yeqifu.mybatis.bean.Employee">
+		select * from tbl_employee where id = #{id} and last_name=#{lastName}
+	</select>
+	
+	<!-- 
+		parameterType：参数类型，可以省略
+		获取自增主键的值：
+			mysql支持自增主键，自增主键值的获取，mybatis也是利用statement.getGenreatedKeys()
+			useGeneratedKeys="true" 使用自增主键获取主键值策略
+			keyProperty 指定对应的主键属性，也就是mybatis获取到主键值以后，将这个值封装给javaBean的那个属性
+	 -->
+	<insert id="addEmployee" parameterType="com.yeqifu.mybatis.bean.Employee" useGeneratedKeys="true" keyProperty="id">
+		insert into tbl_employee(last_name,gender,email)
+		values(#{lastName},#{gender},#{email})
+	</insert>
+	<update id="updateEmployee">
+		update tbl_employee set last_name=#{lastName},gender=#{gender},email=#{email} where id=#{id}
+	</update>
+	<delete id="deleteEmployee">
+		delete from tbl_employee where id=#{id}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
