@@ -6,7 +6,71 @@
 	
 	<!-- 根据部门id查出部门 -->
 	<select id="getDepartmentById" resultType="com.yeqifu.mybatis.bean.Department">
-		select * from tbl_dept where id = #{id}
+		select id,dept_name departName from tbl_dept where id = #{id}
 	</select>
 	
+	<!-- 
+		collection嵌套结果集的方式，定义关联的集合类型元素的封装规则
+	 -->
+	 <resultMap type="com.yeqifu.mybatis.bean.Department" id="myDifDepartment">
+	 	<id column="did" property="id"/>
+	 	<id column="dept_name" property="departName"/>
+	 	<!-- 
+	 		collection定义关联集合类型的属性的封装规则
+	 		ofType：指定集合里面元素的类型
+	 		property：写ofType封装的实体类
+	 	 -->
+	 	<collection property="employees" ofType="com.yeqifu.mybatis.bean.Employee">
+	 		<!-- 定义这个集合中元素的封装规则 -->
+	 		<id column="id" property="id"/>
+	 		<result column="last_name" property="lastName"/>
+	 		<result column="gender" property="gender"/>
+	 		<result column="email" property="email"/>
+	 	</collection>
+	 </resultMap>
+	 <!-- collection进行分步查询，实现懒加载 -->
+	 <resultMap type="com.yeqifu.mybatis.bean.Department" id="myDifDepartment">
+	 	<id column="did" property="id"/>
+	 	<id column="dept_name" property="departName"/>
+	 	<!-- 
+	 		collection定义关联集合类型的属性的封装规则
+	 		ofType：指定集合里面元素的类型
+	 		property：写ofType封装的实体类
+	 	 -->
+	 	<collection property="employees" select="">
+	 		<!-- 定义这个集合中元素的封装规则 -->
+	 		<id column="id" property="id"/>
+	 		<result column="last_name" property="lastName"/>
+	 		<result column="gender" property="gender"/>
+	 		<result column="email" property="email"/>
+	 	</collection>
+	 </resultMap>
+	 <!-- 根据部门id查出该部门，以及该部门的所有员工 -->
+	<select id="getDepartmentAndEmpById" resultMap="myDifDepartment" >
+		select d.id did,d.dept_name dept_name,e.id id,e.last_name last_name,e.gender gender,e.email email
+		from tbl_dept d
+		LEFT JOIN tbl_employee e
+		on d.id=e.d_id
+		where d.id=#{id}
+	</select>
 </mapper>	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,8 @@
+/DepartmentMapper.xml
+/EmployeeMapper.xml
+/EmployeeMapperPlus.xml
+/com/
+/dbconfig.properties
+/log4j.xml
+/mybatis-config.xml
+/EmployeeMapperDynamicSQL.xml

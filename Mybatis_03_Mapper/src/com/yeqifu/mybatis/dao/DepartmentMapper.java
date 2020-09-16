@@ -11,4 +11,13 @@ public interface DepartmentMapper {
 	 */
 	Department getDepartmentById(Integer id);
 	
+	/**
+	 * 根据部门id查询出部门，以及该部门下的所有员工
+	 * @param id
+	 * @return
+	 */
+	Department getDepartmentAndEmpById(Integer id);
+	
+	
+	
 }

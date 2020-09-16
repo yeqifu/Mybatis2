@@ -3,7 +3,6 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yeqifu.mybatis.dao.EmployeeMapperPlus">
-	
 	<!-- 
 		自定义某个javaBean的封装规则 
 		type：自定义规则的java类型
@@ -27,18 +26,15 @@
 		<!-- 其它不指定的列会自动封装：但是推荐只要写resultMap就把全部的映射规则都写上 -->
 		<result column="gender" property="gender"/>
 		<result column="email" property="email"/>
-		
 	</resultMap>
 	<!-- resultMap：自定义结果集映射规则 -->
 	<select id="getEmployeeById" resultMap="myEmployee">
 		select * from tbl_employee where id=#{id}
 	</select>
 	
-	
 	<!-- 
-		场景一：
-			查询employee的同时查询员工对应的部门
-			id  last_name  gender  d_id  did  dept_name
+		场景一：查询employee的同时查询员工对应的部门
+			   id  last_name  email  gender  d_id  did  dept_name
 	 -->
 	<!-- 
 		联合查询：级联属性封装结果集
@@ -48,8 +44,8 @@
 	 	<result column="last_name" property="lastName"/>
 	 	<result column="email" property="email"/>
 	 	<result column="gender" property="gender"/>
-	 	<result column="did" property="deptment.id"/>
-	 	<result column="dept_name" property="deptment.deptName"/>
+	 	<result column="did" property="department.id"/>
+	 	<result column="dept_name" property="department.departName"/>
 	 </resultMap>
 	 
 	 <resultMap type="com.yeqifu.mybatis.bean.Employee" id="myDifEmployee2">
@@ -62,9 +58,9 @@
 	 		property="deptment"：指定那个属性是联合的对象
 	 		javaType：指定这个属性对象的类型【不能省略 】
 	 	 -->
-	 	<association property="deptment" javaType="com.yeqifu.mybatis.bean.Department">
+	 	<association property="department" javaType="com.yeqifu.mybatis.bean.Department">
 	 		<id column="did" property="id"/>
-			<id column="dept_name" property="deptName"/>
+			<id column="dept_name" property="departName"/>
 	 	</association>
 	 </resultMap>
 	 
@@ -90,9 +86,9 @@
 	 </select>
 	 <!-- 
 	 	使用association可以使用延迟加载（懒加载）
-	 	我们每次查询Employee对象的时候，都将一起查询出来
-	 	部门信息在我们使用的时候再去查询
-	 	分段查询的基础之上再加上两个配置
+	 	我们每次查询Employee对象的时候，都将部门一起查询出来了
+	 	但是部门信息可以在我们使用的时候再去查询
+	 	我们只需在分段查询的基础之上再加上两个配置
 	  -->
 
 </mapper>
