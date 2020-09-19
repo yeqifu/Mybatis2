@@ -48,6 +48,7 @@
 	 	<result column="dept_name" property="department.departName"/>
 	 </resultMap>
 	 
+	 <!-- 使用association进行查询 -->
 	 <resultMap type="com.yeqifu.mybatis.bean.Employee" id="myDifEmployee2">
 	 	<result column="id" property="id"/>
 	 	<result column="last_name" property="lastName"/>
@@ -81,8 +82,11 @@
 	 	</association>
 	 </resultMap>
 	 
+	 <!-- 根据员工id查询出此员工以及该员工所属部门 -->
 	 <select id="getEmployeeAndDept" resultMap="myDifEmployee3">
-	 	select e.id,e.last_name,e.email,e.gender,d.id did,d.dept_name from tbl_employee e,tbl_dept d where e.d_id=d.id and d.id=#{id};
+	 	select e.id,e.last_name,e.email,e.gender,d.id did,d.dept_name 
+	 	from tbl_employee e,tbl_dept d 
+	 	where e.d_id=d.id and d.id=#{id};
 	 </select>
 	 <!-- 
 	 	使用association可以使用延迟加载（懒加载）

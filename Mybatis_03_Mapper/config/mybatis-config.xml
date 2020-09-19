@@ -16,8 +16,6 @@
 			name：设置项名
 			value：设置项取值
 	 -->
-	 
-	
 	<settings>
 		<!-- 是否开启驼峰命名配置 -->
 		<setting name="mapUnderscoreToCamelCase" value="true"/>

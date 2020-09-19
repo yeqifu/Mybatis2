@@ -75,7 +75,20 @@ public class MyBatisPlusTest {
 		} finally {
 			openSession.close();
 		}
+	}
 	
+	@Test
+	public void test6() throws IOException{
+		SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
+		SqlSession openSession = sqlSessionFactory.openSession();
+		try {
+			DepartmentMapper mapper = openSession.getMapper(DepartmentMapper.class);
+			Department department = mapper.getDepartmentAndEmpById(2);
+			System.out.println(department.getDepartName());
+			System.out.println(department.getEmployees());
+		} finally {
+			openSession.close();
+		}
 	}
 	
 }

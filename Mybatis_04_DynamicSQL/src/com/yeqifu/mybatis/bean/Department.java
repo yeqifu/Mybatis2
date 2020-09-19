@@ -8,6 +8,32 @@ public class Department {
 	private String departName;
 	private List<Employee> employees;
 
+	
+	
+	public Department() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	
+	
+	public Department(Integer id, String departName) {
+		super();
+		this.id = id;
+		this.departName = departName;
+	}
+
+	
+
+	public Department(Integer id, String departName, List<Employee> employees) {
+		super();
+		this.id = id;
+		this.departName = departName;
+		this.employees = employees;
+	}
+
+
+
 	public Integer getId() {
 		return id;
 	}
